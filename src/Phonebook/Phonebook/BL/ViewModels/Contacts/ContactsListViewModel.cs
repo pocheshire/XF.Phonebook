@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
-using Phonebook.BL.ViewModels.Contacts.Items;
+using Phonebook.Core.BL.ViewModels.Contacts.Items;
+using Phonebook.API.Services;
+using System.Threading.Tasks;
+using System.Linq;
+using Phonebook.API.Models;
+using System.Collections.Generic;
 
-namespace Phonebook.BL.ViewModels.Contacts
+namespace Phonebook.Core.BL.ViewModels.Contacts
 {
     public class ContactsListViewModel : BaseViewModel
     {
+        private IEnumerable<ContactModel> _bundle;
+
         private ICommand _selectionChangedCommand;
         public ICommand SelectionChangedCommand => _selectionChangedCommand ?? (_selectionChangedCommand = MakeCommand(OnSelectionChangedExecute));
 
@@ -27,8 +34,11 @@ namespace Phonebook.BL.ViewModels.Contacts
             set => SetProperty(ref _searchText, value, nameof(SearchText));
         }
 
-        public ContactsListViewModel()
+        public IContactsApiService ApiService { get; }
+
+        public ContactsListViewModel(IContactsApiService apiService)
         {
+            ApiService = apiService;
         }
 
         private void OnSelectionChangedExecute(object item)
@@ -38,7 +48,44 @@ namespace Phonebook.BL.ViewModels.Contacts
 
         private void OnSearchExecute()
         {
-            //TODO: implement search
+            if (string.IsNullOrEmpty(SearchText))
+            {
+                Items = new ObservableCollection<ContactItemVm>(_bundle.Select(SetupItemVm));
+
+                return;
+            }
+            
+            var searchQuery = SearchText.ToLowerInvariant().Split(' ', ',', ';');
+            Items = new ObservableCollection<ContactItemVm>(
+                _bundle
+                .Where(
+                    x => searchQuery.Any(q => x.Email.ToLowerInvariant().Contains(q))
+                        || searchQuery.Any(q => x.Name.Title.ToLowerInvariant().Contains(q))
+                        || searchQuery.Any(q => x.Name.First.ToLowerInvariant().Contains(q))
+                        || searchQuery.Any(q => x.Name.Last.ToLowerInvariant().Contains(q))
+                        || searchQuery.Any(q => x.Phone.Contains(q))
+                )
+                .Select(SetupItemVm)
+            );
         }
+
+        public override async Task OnPageAppearing()
+        {
+            Loading = true;
+
+            try
+            {
+                _bundle = await ApiService.GetContacts();
+
+                Items = new ObservableCollection<ContactItemVm>(_bundle.Select(SetupItemVm));
+            }
+            catch
+            {
+                Loading = false;
+            }
+        }
+
+        private ContactItemVm SetupItemVm(ContactModel model)
+            => new ContactItemVm(model);
     }
 }

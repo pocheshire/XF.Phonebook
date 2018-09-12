@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace Phonebook.UI.Pages.PhotoViewer
+namespace Phonebook.Core.UI.Pages.PhotoViewer
 {
     public partial class PhotoViewerPage : ContentPage
     {

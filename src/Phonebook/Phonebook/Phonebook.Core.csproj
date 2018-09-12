@@ -28,4 +28,7 @@
   <ItemGroup>
     <Compile Remove="UI\Pages\Contacts\ContactsListPage.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Phonebook.API\Phonebook.API.csproj" />
+  </ItemGroup>
 </Project>

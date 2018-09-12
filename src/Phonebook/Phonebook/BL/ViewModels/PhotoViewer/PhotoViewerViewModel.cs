@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Phonebook.BL.ViewModels.PhotoViewer
+namespace Phonebook.Core.BL.ViewModels.PhotoViewer
 {
     public class PhotoViewerViewModel : BaseViewModel
     {

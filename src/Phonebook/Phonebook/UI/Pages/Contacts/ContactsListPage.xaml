@@ -2,13 +2,13 @@
 <pages:BasePage
     xmlns     ="http://xamarin.com/schemas/2014/forms"
     xmlns:x    ="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:Phonebook.UI.Pages;assembly=Phonebook"
-    x:Class    ="Phonebook.UI.Pages.Contacts.ContactsListPage"
+    xmlns:pages="clr-namespace:Phonebook.Core.UI.Pages;assembly=Phonebook"
+    x:Class    ="Phonebook.Core.UI.Pages.Contacts.ContactsListPage"
     Title      ="Контакты">
     <ContentPage.Content>
         <ListView
             x:Name         ="ContactsView"
-            ItemsSource    ="{Binding Contacts}"
+            ItemsSource    ="{Binding Items}"
             ItemSelected   ="OnItemSelected"
             CachingStrategy="RecycleElementAndDataTemplate">
             <ListView.Header>
@@ -27,7 +27,7 @@
                     <Entry
                         Placeholder  ="Найти контакт..."
                         HeightRequest="44"
-                        Text="{Binding SearchText}"
+                        Text="{Binding SearchText, Mode=TwoWay}"
                         ReturnCommand="{Binding SearchCommand}">
                     </Entry>
                 </StackLayout>

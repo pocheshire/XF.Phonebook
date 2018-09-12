@@ -1,10 +1,11 @@
 ﻿using System;
+using Phonebook.API.Models;
 
-namespace Phonebook.BL.ViewModels.Contact
+namespace Phonebook.Core.BL.ViewModels.Contact
 {
     public class ContactInfoViewModel : BaseViewModel
     {
-        public ContactInfoViewModel()
+        public ContactInfoViewModel(ContactModel model)
         {
         }
     }

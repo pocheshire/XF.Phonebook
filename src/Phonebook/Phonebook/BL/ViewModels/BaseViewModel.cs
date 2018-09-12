@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Phonebook.BL.ViewModels
+namespace Phonebook.Core.BL.ViewModels
 {
     public class BaseViewModel : IDisposable, INotifyPropertyChanged
     {
@@ -17,15 +17,16 @@ namespace Phonebook.BL.ViewModels
         private ICommand _goBackCommand;
         public ICommand GoBackCommand => _goBackCommand ?? (_goBackCommand = MakeCommand(NavigateBack));
 
-        public BaseViewModel()
+        private bool _loading;
+        public bool Loading
         {
-
+            get => _loading;
+            set => SetProperty(ref _loading, value, nameof(Loading));
         }
 
-        public void Dispose()
+        public BaseViewModel()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            
         }
 
         ~BaseViewModel()
@@ -81,9 +82,27 @@ namespace Phonebook.BL.ViewModels
 
             _properties.AddOrUpdate(name, value, (s, o) => value);
 
+            storage = (T)value;
+
             OnPropertyChanged(name);
 
             return true;
+        }
+
+        public virtual Task OnPageAppearing()
+        {
+            return Task.FromResult(0);
+        }
+
+        public virtual Task OnPageDissapearing()
+        {
+            return Task.FromResult(0);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

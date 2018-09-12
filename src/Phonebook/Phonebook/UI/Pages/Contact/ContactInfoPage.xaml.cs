@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Xamarin.Forms;
 
-namespace Phonebook.UI.Pages.Contact
+namespace Phonebook.Core.UI.Pages.Contact
 {
     public partial class ContactInfoPage : ContentPage
     {

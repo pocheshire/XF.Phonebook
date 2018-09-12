@@ -1,11 +1,13 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Phonebook.BL.ViewModels.Contacts;
-using Phonebook.UI.Pages;
+using Phonebook.Core.BL.ViewModels.Contacts;
+using Phonebook.Core.UI.Pages;
+using Phonebook.API.Services;
+using Phonebook.API.Services.Implementations;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace Phonebook
+namespace Phonebook.Core
 {
     public partial class App : Application
     {
@@ -13,8 +15,21 @@ namespace Phonebook
         {
             InitializeComponent();
 
+            RegisterServices();
+
+            SetMainPage();
+        }
+
+        private void RegisterServices()
+        {
+            DependencyService.Register<IContactsApiService, ContactsApiService>();
+        }
+
+        private void SetMainPage()
+        {
             var mainPage = new UI.Pages.Contacts.ContactsListPage();
-            mainPage.SetViewModel(new ContactsListViewModel());
+
+            mainPage.SetViewModel(new ContactsListViewModel(DependencyService.Get<IContactsApiService>()));
 
             MainPage = new NavigationPage(mainPage);
         }

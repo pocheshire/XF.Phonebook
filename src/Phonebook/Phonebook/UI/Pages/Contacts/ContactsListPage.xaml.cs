@@ -1,8 +1,8 @@
 ﻿using System;
-using Phonebook.BL.ViewModels.Contacts;
+using Phonebook.Core.BL.ViewModels.Contacts;
 using Xamarin.Forms;
 
-namespace Phonebook.UI.Pages.Contacts
+namespace Phonebook.Core.UI.Pages.Contacts
 {
     public partial class ContactsListPage : BasePage
     {
@@ -13,7 +13,7 @@ namespace Phonebook.UI.Pages.Contacts
 
         void OnItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
-            (ViewModel as ContactsListViewModel).SelectionChangedCommand.Execute(sender);
+            (ViewModel as ContactsListViewModel).SelectionChangedCommand.Execute(e.SelectedItem);
         }
     }
 }
