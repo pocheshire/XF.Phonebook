@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    xmlns     ="http://xamarin.com/schemas/2014/forms"
+    xmlns:x    ="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Phonebook.UI.Pages;assembly=Phonebook"
+    x:Class    ="Phonebook.UI.Pages.Contacts.ContactsListPage"
+    Title      ="Контакты">
+    <ContentPage.Content>
+        <ListView
+            x:Name         ="ContactsView"
+            ItemsSource    ="{Binding Contacts}"
+            ItemSelected   ="OnItemSelected"
+            CachingStrategy="RecycleElementAndDataTemplate">
+            <ListView.Header>
+                <StackLayout>
+                    <StackLayout.Padding>
+                        <OnPlatform
+                            x:TypeArguments="Thickness">
+                            <On
+                                Platform="iOS"
+                                Value   ="8" />
+                            <On
+                                Platform="Android, UWP"
+                                Value   ="16" />
+                        </OnPlatform>
+                    </StackLayout.Padding>
+                    <Entry
+                        Placeholder  ="Найти контакт..."
+                        HeightRequest="44"
+                        Text="{Binding SearchText}"
+                        ReturnCommand="{Binding SearchCommand}">
+                    </Entry>
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell
+                        ImageSource="{Binding ImageSource}"
+                        Text       ="{Binding FullName}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</pages:BasePage>
