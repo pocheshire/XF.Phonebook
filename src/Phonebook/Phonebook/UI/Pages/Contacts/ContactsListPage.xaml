@@ -6,39 +6,48 @@
     x:Class    ="Phonebook.Core.UI.Pages.Contacts.ContactsListPage"
     Title      ="Контакты">
     <ContentPage.Content>
-        <ListView
-            x:Name         ="ContactsView"
-            ItemsSource    ="{Binding Items}"
-            ItemSelected   ="OnItemSelected"
-            CachingStrategy="RecycleElementAndDataTemplate">
-            <ListView.Header>
-                <StackLayout>
-                    <StackLayout.Padding>
-                        <OnPlatform
-                            x:TypeArguments="Thickness">
-                            <On
-                                Platform="iOS"
-                                Value   ="8" />
-                            <On
-                                Platform="Android, UWP"
-                                Value   ="16" />
-                        </OnPlatform>
-                    </StackLayout.Padding>
-                    <Entry
-                        Placeholder  ="Найти контакт..."
-                        HeightRequest="44"
-                        Text="{Binding SearchText, Mode=TwoWay}"
-                        ReturnCommand="{Binding SearchCommand}">
-                    </Entry>
-                </StackLayout>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ImageCell
-                        ImageSource="{Binding ImageSource}"
-                        Text       ="{Binding FullName}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid>
+            <ListView
+                x:Name         ="ContactsView"
+                ItemsSource    ="{Binding Items}"
+                ItemTapped     ="OnItemTapped"
+                CachingStrategy="RecycleElementAndDataTemplate">
+                <ListView.Header>
+                    <StackLayout>
+                        <StackLayout.Padding>
+                            <OnPlatform
+                                x:TypeArguments="Thickness">
+                                <On
+                                    Platform="iOS"
+                                    Value   ="8" />
+                                <On
+                                    Platform="Android, UWP"
+                                    Value   ="16" />
+                            </OnPlatform>
+                        </StackLayout.Padding>
+                        <Entry
+                            Placeholder  ="Найти контакт..."
+                            HeightRequest="44"
+                            Text         ="{Binding SearchText, Mode=TwoWay}"
+                            ReturnCommand="{Binding SearchCommand}">
+                        </Entry>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ImageCell
+                            ImageSource="{Binding ImageSource}"
+                            Text       ="{Binding FullName}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <ActivityIndicator
+                Color            ="Blue"
+                IsRunning        ="{Binding Loading}"
+                IsVisible        ="{Binding Loading}"
+                VerticalOptions  ="Center"
+                HorizontalOptions="Center">
+            </ActivityIndicator>
+        </Grid>
     </ContentPage.Content>
 </pages:BasePage>

@@ -11,9 +11,9 @@ namespace Phonebook.Core.UI.Pages.Contacts
             InitializeComponent();
         }
 
-        void OnItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        void OnItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
-            (ViewModel as ContactsListViewModel).SelectionChangedCommand.Execute(e.SelectedItem);
+            (ViewModel as ContactsListViewModel).SelectionChangedCommand.Execute(e.Item);
         }
     }
 }

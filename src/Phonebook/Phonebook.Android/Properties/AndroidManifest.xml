@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android      ="http://schemas.android.com/apk/res/android"
-    android:versionCode="1"
-    android:versionName="1.0"
-    package            ="com.maksimevtukh.Phonebook">
-    <uses-sdk
-        android:minSdkVersion   ="21"
-        android:targetSdkVersion="27" />
-    <application
-        android:label="Phonebook.Android">
-    </application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.maksimevtukh.phonebook">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="27" />
+	<uses-permission android:name="android.permission.SEND_SMS" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<application android:label="Phonebook.Android">
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.maksimevtukh.phonebook.fileprovider" android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
+		</provider>
+	</application>
 </manifest>

@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Phonebook.API.Services;
+using Phonebook.API.Services.Implementations;
+using Phonebook.Core.BL.Services;
+using Phonebook.Core.BL.ViewModels.Contact;
+using Phonebook.Core.BL.ViewModels.Contacts;
+using Phonebook.Core.BL.ViewModels.PhotoViewer;
+using Phonebook.Core.UI.Pages.Contact;
+using Phonebook.Core.UI.Pages.Contacts;
+using Phonebook.Core.UI.Pages.PhotoViewer;
+using Phonebook.Core.UI.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Phonebook.Core.BL.ViewModels.Contacts;
-using Phonebook.Core.UI.Pages;
-using Phonebook.API.Services;
-using Phonebook.API.Services.Implementations;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Phonebook.Core
@@ -17,12 +22,24 @@ namespace Phonebook.Core
 
             RegisterServices();
 
+            RegisterViewModelMappings();
+
             SetMainPage();
         }
 
         private void RegisterServices()
         {
             DependencyService.Register<IContactsApiService, ContactsApiService>();
+            DependencyService.Register<INavigationService, NavigationService>();
+        }
+
+        private void RegisterViewModelMappings()
+        {
+            var navigationService = DependencyService.Resolve<INavigationService>();
+
+            navigationService.Register<ContactsListPage, ContactsListViewModel>();
+            navigationService.Register<ContactInfoPage, ContactInfoViewModel>();
+            navigationService.Register<PhotoViewerPage, PhotoViewerViewModel>();
         }
 
         private void SetMainPage()

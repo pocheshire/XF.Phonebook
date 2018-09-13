@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Phonebook.Core.BL.Services;
 using Xamarin.Forms;
 
 namespace Phonebook.Core.BL.ViewModels
@@ -14,9 +15,6 @@ namespace Phonebook.Core.BL.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ICommand _goBackCommand;
-        public ICommand GoBackCommand => _goBackCommand ?? (_goBackCommand = MakeCommand(NavigateBack));
-
         private bool _loading;
         public bool Loading
         {
@@ -24,9 +22,11 @@ namespace Phonebook.Core.BL.ViewModels
             set => SetProperty(ref _loading, value, nameof(Loading));
         }
 
+        protected INavigationService NavigationService { get; }
+
         public BaseViewModel()
         {
-            
+            NavigationService = DependencyService.Resolve<INavigationService>();
         }
 
         ~BaseViewModel()
@@ -39,23 +39,6 @@ namespace Phonebook.Core.BL.ViewModels
 
         }
 
-        protected ICommand MakeNavigateToCommand(object toViewModel)
-        {
-            return MakeCommand(async () => await NavigateTo(toViewModel));
-        }
-
-        protected async Task NavigateTo(object toViewModel)
-        {
-            //TODO: implement navigaiton service
-            //DependencyService.Resolve<INavigation>().PushAsync()
-        }
-
-        private void NavigateBack()
-        {
-            //TODO: implement navigaiton service
-            //DependencyService.Resolve<INavigation>().PopAsync()
-        }
-
         protected ICommand MakeCommand(Action commandAction)
         {
             return new Command(commandAction);
@@ -66,12 +49,22 @@ namespace Phonebook.Core.BL.ViewModels
             return new Command(commandAction);
         }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected ICommand MakeCommand(Action commandAction, Func<bool> canExecute)
+        {
+            return new Command(commandAction, canExecute);
+        }
+
+        protected ICommand MakeCommand(Action<object> commandAction, Func<object, bool> canExecute)
+        {
+            return new Command(commandAction, canExecute);
+        }
+
+        protected void OnPropertyChanged(string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected bool SetProperty<T>(ref T storage, object value, [CallerMemberName] string name = null)
+        protected bool SetProperty<T>(ref T storage, object value, string name = null)
         {
             if (string.IsNullOrEmpty(name))
                 return false;
@@ -87,6 +80,16 @@ namespace Phonebook.Core.BL.ViewModels
             OnPropertyChanged(name);
 
             return true;
+        }
+
+        protected void RaisePropertyChanged(string name)
+        {
+            OnPropertyChanged(name);
+        }
+
+        public virtual void Prepare(object parameter)
+        {
+
         }
 
         public virtual Task OnPageAppearing()

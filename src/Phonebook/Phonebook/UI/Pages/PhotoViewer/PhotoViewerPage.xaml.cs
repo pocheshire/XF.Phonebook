@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Phonebook.Core.UI.Pages.PhotoViewer
 {
-    public partial class PhotoViewerPage : ContentPage
+    public partial class PhotoViewerPage : BasePage
     {
         public PhotoViewerPage()
         {

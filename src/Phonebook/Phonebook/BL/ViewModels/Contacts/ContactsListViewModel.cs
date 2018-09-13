@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
-using Phonebook.Core.BL.ViewModels.Contacts.Items;
-using Phonebook.API.Services;
-using System.Threading.Tasks;
-using System.Linq;
-using Phonebook.API.Models;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Phonebook.API.Models;
+using Phonebook.API.Services;
+using Phonebook.Core.BL.ViewModels.Contact;
+using Phonebook.Core.BL.ViewModels.Contacts.Items;
 
 namespace Phonebook.Core.BL.ViewModels.Contacts
 {
     public class ContactsListViewModel : BaseViewModel
     {
+        private bool _dataLoaded;
+
         private IEnumerable<ContactModel> _bundle;
 
         private ICommand _selectionChangedCommand;
@@ -43,7 +46,7 @@ namespace Phonebook.Core.BL.ViewModels.Contacts
 
         private void OnSelectionChangedExecute(object item)
         {
-            //TODO: navigate to contact
+            NavigationService.Push(typeof(ContactInfoViewModel), ((ContactItemVm)item).Model);
         }
 
         private void OnSearchExecute()
@@ -71,6 +74,9 @@ namespace Phonebook.Core.BL.ViewModels.Contacts
 
         public override async Task OnPageAppearing()
         {
+            if (_dataLoaded)
+                return;
+
             Loading = true;
 
             try
@@ -78,8 +84,14 @@ namespace Phonebook.Core.BL.ViewModels.Contacts
                 _bundle = await ApiService.GetContacts();
 
                 Items = new ObservableCollection<ContactItemVm>(_bundle.Select(SetupItemVm));
+
+                _dataLoaded = true;
             }
-            catch
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.TraceError($"{ex.Message}\n{ex.StackTrace}");
+            }
+            finally
             {
                 Loading = false;
             }

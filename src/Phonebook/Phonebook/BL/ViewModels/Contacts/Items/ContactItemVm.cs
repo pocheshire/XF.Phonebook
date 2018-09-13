@@ -17,29 +17,7 @@ namespace Phonebook.Core.BL.ViewModels.Contacts.Items
 
             ImageSource = model.Image.Thumbnail;
 
-            FullName = GetFullName(model.Name);
-        }
-
-        private string GetFullName(NameModel name)
-        {
-            var sb = new StringBuilder();
-
-            if (!string.IsNullOrEmpty(name.Title))
-            { 
-                sb.Append(name.Title);
-                sb.Append(" ");
-            }
-            if (!string.IsNullOrEmpty(name.First))
-            {
-                sb.Append(name.First); 
-                sb.Append(" ");
-            }
-            if (!string.IsNullOrEmpty(name.Last))
-            {
-                sb.Append(name.Last); 
-            }
-
-            return sb.ToString();
+            FullName = model.Name.ToString();
         }
     }
 }

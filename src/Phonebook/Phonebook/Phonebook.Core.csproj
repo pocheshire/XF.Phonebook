@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+    <PackageReference Include="Xam.Plugins.Messaging" Version="5.2.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\" />
@@ -24,11 +25,16 @@
     <Folder Include="BL\ViewModels\PhotoViewer\" />
     <Folder Include="BL\ViewModels\Contacts\" />
     <Folder Include="BL\ViewModels\Contacts\Items\" />
+    <Folder Include="BL\Services\" />
+    <Folder Include="UI\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="UI\Pages\Contacts\ContactsListPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Phonebook.API\Phonebook.API.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="UI\.DS_Store" />
   </ItemGroup>
 </Project>
