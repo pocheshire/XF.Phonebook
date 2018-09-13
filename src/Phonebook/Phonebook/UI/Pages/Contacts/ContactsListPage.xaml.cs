@@ -1,6 +1,4 @@
-﻿using System;
-using Phonebook.Core.BL.ViewModels.Contacts;
-using Xamarin.Forms;
+﻿using Phonebook.Core.BL.ViewModels.Contacts;
 
 namespace Phonebook.Core.UI.Pages.Contacts
 {

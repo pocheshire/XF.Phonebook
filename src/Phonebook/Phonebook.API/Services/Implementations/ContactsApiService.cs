@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Phonebook.API.Models;
-using System.Net.Http;
 
 namespace Phonebook.API.Services.Implementations
 {

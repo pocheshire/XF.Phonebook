@@ -46,10 +46,4 @@ namespace Phonebook.Core.UI.Pages
             });
         }
     }
-
-    public class BasePage<T> : BasePage
-        where T : BaseViewModel
-    {
-        public new T ViewModel => ViewModel as T;
-    }
 }

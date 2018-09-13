@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace Phonebook.Core.UI.Pages.PhotoViewer
+﻿namespace Phonebook.Core.UI.Pages.PhotoViewer
 {
     public partial class PhotoViewerPage : BasePage
     {

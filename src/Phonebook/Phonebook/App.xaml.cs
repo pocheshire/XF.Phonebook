@@ -44,7 +44,7 @@ namespace Phonebook.Core
 
         private void SetMainPage()
         {
-            var mainPage = new UI.Pages.Contacts.ContactsListPage();
+            var mainPage = new ContactsListPage();
 
             mainPage.SetViewModel(new ContactsListViewModel(DependencyService.Get<IContactsApiService>()));
 

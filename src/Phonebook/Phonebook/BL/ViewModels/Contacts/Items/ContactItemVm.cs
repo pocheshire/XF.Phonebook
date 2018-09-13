@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Phonebook.API.Models;
+﻿using Phonebook.API.Models;
 
 namespace Phonebook.Core.BL.ViewModels.Contacts.Items
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Phonebook.Core.BL.Services;
 using Phonebook.Core.BL.ViewModels;
 using Phonebook.Core.UI.Pages;
@@ -52,6 +53,11 @@ namespace Phonebook.Core.UI.Services
         private void RunViewModelLifecycle(BaseViewModel viewModel, object parameter)
         {
             viewModel.Prepare(parameter);
+
+            Task.Run(async () =>
+            {
+                await viewModel.Initialize();
+            });
         }
 
         private INavigation GetTopNavigation()

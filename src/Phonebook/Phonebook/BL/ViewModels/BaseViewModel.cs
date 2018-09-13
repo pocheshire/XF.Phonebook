@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Phonebook.Core.BL.Services;
@@ -92,14 +91,19 @@ namespace Phonebook.Core.BL.ViewModels
 
         }
 
+        public virtual Task Initialize()
+        {
+            return Task.CompletedTask;
+        }
+
         public virtual Task OnPageAppearing()
         {
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
 
         public virtual Task OnPageDissapearing()
         {
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
 
         public void Dispose()

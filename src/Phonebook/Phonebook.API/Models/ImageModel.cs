@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Phonebook.API.Models
+﻿namespace Phonebook.API.Models
 {
     public class ImageModel
     {
