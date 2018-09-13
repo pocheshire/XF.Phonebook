@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    xmlns     ="http://xamarin.com/schemas/2014/forms"
+    xmlns:x    ="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Phonebook.Core.UI.Pages;assembly=Phonebook"
+    x:Class    ="Phonebook.Core.UI.Pages.PhotoViewer.PhotoViewerPage"
+    Title      ="Фото">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button
+                Text   ="Закрыть"
+                Command="{Binding CloseCommand}"
+                Margin ="0, 32, 0, 0" />
+            <ScrollView
+                Orientation      ="Both"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions  ="FillAndExpand">
+                <ScrollView.Content>
+                    <Image
+                        Source="{Binding ImageSource}"
+                        Aspect="AspectFit">
+                    </Image>
+                </ScrollView.Content>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
